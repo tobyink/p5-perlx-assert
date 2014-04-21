@@ -1,0 +1,19 @@
+# This file contains general metadata about the project.
+
+@prefix : <http://usefulinc.com/ns/doap#>.
+
+`PerlX-Assert`
+	:programming-language "Perl" ;
+	:shortdesc            "cheap assertions";
+	:homepage             <https://metacpan.org/release/PerlX-Assert>;
+	:download-page        <https://metacpan.org/release/PerlX-Assert>;
+	:bug-database         <http://rt.cpan.org/Dist/Display.html?Queue=PerlX-Assert>;
+#	:repository           [ a :GitRepository; :browse <https://github.com/tobyink/p5-perlx-assert> ];
+	:created              2014-04-20;
+	:license              <http://dev.perl.org/licenses/>;
+	:maintainer           cpan:TOBYINK;
+	:developer            cpan:TOBYINK.
+
+<http://dev.perl.org/licenses/>
+	dc:title  "the same terms as the perl 5 programming language system itself".
+
