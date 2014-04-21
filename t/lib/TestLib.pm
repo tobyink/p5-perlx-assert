@@ -1,6 +1,5 @@
 package main;
 
-use Test::Modern;
 no warnings qw(void);
 
 BEGIN {
