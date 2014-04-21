@@ -18,7 +18,7 @@ before_install:
   - "perl -V"
 install:
   - "cpanm -n Test::Modern"
-  - "perl -e'system cpanm => ($] < 5.014) ? qw(Devel::Declare) : qw(--verbose Keyword::Simple)'"
+  - "perl -e'system cpanm => ($] < 5.014) ? qw(Devel::Declare) : qw(B::Hooks::EndOfScope Keyword::Simple)'"
 script:
   - prove -Ilib t
 notifications:
