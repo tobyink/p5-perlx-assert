@@ -17,8 +17,8 @@ before_install:
   - "perlbrew install-cpanm -f"
   - "perl -V"
 install:
-  - cpanm -n Test::Modern
-  - perl -e'system cpanm => ($] < 5.014) ? q(Devel::Declare) : q(Keyword::Simple)'
+  - "cpanm -n Test::Modern"
+  - "perl -e'system cpanm => ($] < 5.014) ? q(Devel::Declare) : q(Keyword::Simple)'"
 script:
   - prove -Ilib t
 #notifications:
