@@ -4,7 +4,7 @@
 
 `PerlX-Assert`
 	:programming-language "Perl" ;
-	:shortdesc            "cheap assertions";
+	:shortdesc            "yet another assertion keyword";
 	:homepage             <https://metacpan.org/release/PerlX-Assert>;
 	:download-page        <https://metacpan.org/release/PerlX-Assert>;
 	:bug-database         <http://rt.cpan.org/Dist/Display.html?Queue=PerlX-Assert>;
