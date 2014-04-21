@@ -50,6 +50,8 @@ __END__
 
 =encoding utf-8
 
+=for stopwords backported
+
 =head1 NAME
 
 PerlX::Assert - yet another assertion keyword

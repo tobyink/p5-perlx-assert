@@ -19,7 +19,7 @@ sub import
 {
 	my $class  = shift;
 	my $caller = caller;
-	my $active = $class->should_be_active(@_);	
+	my $active = $class->should_be_active(@_);
 	my $ctx    = 'PerlX::Assert::DD::_Parser'->new($active);
 	my $parser = sub { $ctx->init(@_); $ctx->parse };
 	
