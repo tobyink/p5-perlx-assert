@@ -21,8 +21,8 @@ install:
   - "perl -e'system cpanm => ($] < 5.014) ? q(Devel::Declare) : q(Keyword::Simple)'"
 script:
   - prove -Ilib t
-#notifications:
-#  irc:
-#    channels:
-#      - "irc.perl.org#moops"
-#    on_success: change
+notifications:
+  irc:
+    channels:
+      - "irc.perl.org#moops"
+    on_success: change
