@@ -6,7 +6,7 @@ no warnings qw( uninitialized void once );
 package PerlX::Assert;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.900';
+our $VERSION   = '0.900_00';
 
 our $NO_KEYWORD_API;
 
