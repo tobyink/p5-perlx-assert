@@ -1,5 +1,5 @@
 
-my $new_perl = ($] >= 5.014);
+my $new_perl = ($] >= 5.012);
 my $backend  = $new_perl ? 'Keyword::Simple' : 'Devel::Declare';
 my $extended = $ENV{AUTOMATED_TESTING} || $ENV{EXTENDED_TESTING};
 
