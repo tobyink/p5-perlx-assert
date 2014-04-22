@@ -10,3 +10,9 @@
 		item "Extend PerlX::Assert::Keyword support to Perl 5.12.x."^^Change;
 	].
 
+`PerlX-Assert 0.900_02 cpan:TOBYINK`
+	issued  2014-04-22;
+	changeset [
+		item "Use Exporter::Tiny, which will provide a decent framework for adding more features in the future."^^Change;
+	].
+
