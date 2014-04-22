@@ -3,45 +3,108 @@ use strict;
 use warnings;
 no warnings qw( uninitialized void once );
 
+use Exporter::Tiny ();
+
 package PerlX::Assert;
 
 our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.900_01';
+our @ISA       = qw( Exporter::Tiny );
+our @EXPORT    = qw( assert );
 
 our $NO_KEYWORD_API;
+my $IMPLEMENTATION;
+my %HINTS = (check => 1);
 
-my ($impl, $import);
+# This functionality probably needs to be added to
+# Exporter::Tiny itself.
 sub import
 {
-	$import ||= do {
-		$impl = eval {
-			die if $NO_KEYWORD_API;
-			require PerlX::Assert::Keyword;
-			'PerlX::Assert::Keyword';
-		}
-		|| do {
-			require PerlX::Assert::DD;
-			'PerlX::Assert::DD';
-		};
-		$impl->can('import');
-	};
-	shift @_;
-	unshift @_, $impl;
-	goto $import;
+	my $me = shift;
+	my $symbols = grep {
+		ref($_)                        ? 0 :  # refs are not symbols
+		/\A[:-](\w+)\z/ && $HINTS{$1}  ? 0 :  # hints are not symbols
+		1;                                    # everything else is
+	} @_;
+	
+	push @_, @EXPORT if $symbols == 0;
+	
+	my $globals = ref($_[0]) eq 'HASH' ? shift() : {};
+	unshift @_, $me, $globals;
+	goto \&Exporter::Tiny::import;
 }
 
-sub should_be_active
+sub _exporter_validate_opts
 {
-	shift;
-	my $active = 0+!!( $_[0] eq '-check' );
-	$ENV{$_} && $active++ for qw/
+	my $me = shift;
+	my ($globals) = @_;
+	
+	$IMPLEMENTATION ||= $me unless $me eq __PACKAGE__;
+	$IMPLEMENTATION ||= eval {
+		die if $NO_KEYWORD_API;
+		require PerlX::Assert::Keyword;
+		'PerlX::Assert::Keyword';
+	}
+	|| do {
+		require PerlX::Assert::DD;
+		'PerlX::Assert::DD';
+	};
+	
+	$ENV{$_} && ++$globals->{check} for qw/
 		AUTHOR_TESTING
 		AUTOMATED_TESTING
 		EXTENDED_TESTING
 		RELEASE_TESTING
 	/;
-	$active;
 }
+
+sub _exporter_install_sub
+{
+	my $me = shift;
+	my ($name, $value, $globals, $sym) = @_;
+	
+	# This is harder than it should be. :-(
+	# A rather roundabout method for overwriting
+	# the installation of the 'assert' function.
+	if ($name eq 'assert' and not ref $globals->{into})
+	{
+		my $tmp = exists($globals->{installer})
+			? [ delete($globals->{installer}) ]
+			: undef;
+		$globals->{installer} = sub {
+			$IMPLEMENTATION->_install_assert(
+				$_[1][0],
+				$globals,
+			);
+		};
+		$me->SUPER::_exporter_install_sub(@_);
+		$tmp
+			? ($globals->{installer} = $tmp->[0])
+			: delete($globals->{installer});
+		return;
+	}
+	
+	$me->SUPER::_exporter_install_sub(@_);
+}
+
+sub _generate_assert
+{
+	my $me = shift;
+	my ($name, $args, $globals) = @_;
+	
+	return sub ($$) { 0 }
+		unless $globals->{check};
+	
+	return sub ($$) {
+		my ($desc, $value) = @_==1 ? (undef, @_) : @_;
+		return if $value;
+		require Carp;
+		Carp::croak(sprintf(q[Assertion failed: %s], $desc)) if defined $desc;
+		Carp::croak(sprintf(q[Assertion failed]));
+	};
+}
+
+*assert = __PACKAGE__->_generate_assert(assert => {}, {});
 
 __PACKAGE__
 __END__

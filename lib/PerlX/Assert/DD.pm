@@ -15,21 +15,22 @@ our @ISA       = qw( PerlX::Assert );
 # Would be nice to replace this with an XS version
 sub _false { !!0 }
 
-sub import
+sub _install_assert
 {
-	my $class  = shift;
-	my $caller = caller;
-	my $active = $class->should_be_active(@_);
-	my $ctx    = 'PerlX::Assert::DD::_Parser'->new($active);
-	my $parser = sub { $ctx->init(@_); $ctx->parse };
+	my $class = shift;
+	my ($subname, $globals) = @_;
+	my $caller = $globals->{into};
+	my $active = $globals->{check};
 	
+	my $ctx    = 'PerlX::Assert::DD::_Parser'->new($active, $subname);
+	my $parser = sub { $ctx->init(@_); $ctx->parse };
 	'Devel::Declare'->setup_for(
 		$caller,
-		{ assert => { const => $parser } },
+		{ $subname => { const => $parser } },
 	);
 	
 	no strict qw(refs);
-	*{"$caller\::assert"} = \&_false;
+	*{"$caller\::$subname"} = \&_false;
 }
 
 {
@@ -43,9 +44,10 @@ sub import
 	sub new
 	{
 		my $class = shift;
-		my ($active) = @_;
+		my ($active, $subname) = @_;
 		my $self = $class->SUPER::new;
-		$self->{is_active}    = $active;
+		$self->{is_active} = $active;
+		$self->{subname}   = $subname || 'assert';
 		$self;
 	}
 	
@@ -82,7 +84,7 @@ sub import
 		
 		# strip declarator
 		my $linestr = $self->get_linestr;
-		substr($linestr, $offset1, 6) = '';
+		substr($linestr, $offset1, length($self->{subname})) = '';
 		$self->set_linestr($linestr);
 		$self->skipspace;
 		
@@ -122,13 +124,15 @@ sub import
 		my ($name, $do) = @_;
 		$do = $do ? "do " : "";
 		
-		return "      () and $do"
+		my $spaces = q[ ] x length($self->{subname});
+		
+		return $spaces."() and $do"
 			if not $self->is_active;
 		
-		return "      die(sprintf q[Assertion failed: %s], $name) unless $do"
+		return $spaces."die(sprintf q[Assertion failed: %s], $name) unless $do"
 			if defined $name;
 		
-		return "      die(sprintf q[Assertion failed]) unless $do";
+		return $spaces."die(sprintf q[Assertion failed]) unless $do";
 	}
 }
 

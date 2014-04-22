@@ -12,12 +12,14 @@ our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.900_01';
 our @ISA       = qw( PerlX::Assert );
 
-sub import
+sub _install_assert
 {
-	my $class  = shift;
-	my $active = $class->should_be_active(@_);
+	my $class = shift;
+	my ($subname, $globals) = @_;	
+	my $caller = $globals->{into};
+	my $active = $globals->{check};
 
-	Keyword::Simple::define('assert' => sub
+	Keyword::Simple::define($subname, sub
 	{
 		my $ref = shift;
 		_eat_space($ref);
