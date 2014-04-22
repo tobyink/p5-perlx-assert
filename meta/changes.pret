@@ -4,3 +4,9 @@
 	issued  2014-04-21;
 	label   "Experimental split from Moops".
 
+`PerlX-Assert 0.900_01 cpan:TOBYINK`
+	issued  2014-04-22;
+	changeset [
+		item "Extend PerlX::Assert::Keyword support to Perl 5.12.x."^^Change;
+	].
+

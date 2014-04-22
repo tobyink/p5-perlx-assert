@@ -9,7 +9,7 @@ use PerlX::Assert ();
 package PerlX::Assert::DD;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.900_00';
+our $VERSION   = '0.900_01';
 our @ISA       = qw( PerlX::Assert );
 
 # Would be nice to replace this with an XS version
