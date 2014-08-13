@@ -19,7 +19,7 @@
 		item "Use Exporter::Tiny, which will provide a decent framework for adding more features in the future."^^Change;
 	].
 
-`PerlX-Assert 0.900_02 cpan:TOBYINK`
+`PerlX-Assert 0.902 cpan:TOBYINK`
 	issued  2014-08-13;
 	label   "First stable release";
 	changeset [
