@@ -26,3 +26,9 @@
 		item "Refer to Devel::StrictMode for a decision on whether to arm ourself."^^BackCompat;
 	].
 
+`PerlX-Assert 0.903 cpan:TOBYINK`
+	issued  2014-08-13;
+	changeset [
+		item "Better document Devel::StrictMode usage."^^Documentation;
+	].
+
