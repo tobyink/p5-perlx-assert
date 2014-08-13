@@ -2,7 +2,10 @@
 
 `PerlX-Assert 0.900_00 cpan:TOBYINK`
 	issued  2014-04-21;
-	label   "Experimental split from Moops".
+	label   "Experimental split from Moops";
+	changeset [
+		item "Includes PerlX::Assert::DD which extends support to older versions of Perl, albeit with slightly dodgy parsing."^^Change;
+	].
 
 `PerlX-Assert 0.900_01 cpan:TOBYINK`
 	issued  2014-04-22;
@@ -14,5 +17,12 @@
 	issued  2014-04-22;
 	changeset [
 		item "Use Exporter::Tiny, which will provide a decent framework for adding more features in the future."^^Change;
+	].
+
+`PerlX-Assert 0.900_02 cpan:TOBYINK`
+	issued  2014-08-13;
+	label   "First stable release";
+	changeset [
+		item "Refer to Devel::StrictMode for a decision on whether to arm ourself."^^BackCompat;
 	].
 
