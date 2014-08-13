@@ -15,7 +15,7 @@ our @ISA       = qw( PerlX::Assert );
 sub _install_assert
 {
 	my $class = shift;
-	my ($subname, $globals) = @_;	
+	my ($subname, $globals) = @_;
 	my $caller = $globals->{into};
 	my $active = $globals->{check};
 

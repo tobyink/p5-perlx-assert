@@ -20,6 +20,8 @@ the same terms as the Perl 5 programming language system itself.
 
 =cut
 
+no warnings qw(once);
 BEGIN { ++$PerlX::Assert::NO_KEYWORD_API };
+
 use Test::Modern -requires => { 'Devel::Declare' => 0 };
 require TestLib;

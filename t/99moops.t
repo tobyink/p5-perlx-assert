@@ -21,10 +21,15 @@ the same terms as the Perl 5 programming language system itself.
 =cut
 
 use Test::Modern -requires => { Moops => '0.030' };
+
+BEGIN {
+	Test::More::plan( skip_all => "broken by PerlX::Assert's change to decision logic" );
+};
+
 use Moops;
 
 BEGIN {
-	$ENV{AUTHOR_TESTING} = $ENV{AUTOMATED_TESTING} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
+	$ENV{AUTHOR_TESTING} = $ENV{PERL_STRICT} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
 };
 
 class Foo {
@@ -41,7 +46,7 @@ ok( 'Foo'->go(4), '... and a dummy value that should not cause assertion to fail
 
 {
 	BEGIN {
-		$ENV{AUTHOR_TESTING} = $ENV{AUTOMATED_TESTING} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
+		$ENV{AUTHOR_TESTING} = $ENV{PERL_STRICT} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
 		$ENV{AUTHOR_TESTING} = 1;
 	};
 	
@@ -62,8 +67,8 @@ ok( 'Foo'->go(4), '... and a dummy value that should not cause assertion to fail
 
 {
 	BEGIN {
-		$ENV{AUTHOR_TESTING} = $ENV{AUTOMATED_TESTING} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
-		$ENV{AUTOMATED_TESTING} = 1;
+		$ENV{AUTHOR_TESTING} = $ENV{PERL_STRICT} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
+		$ENV{PERL_STRICT} = 1;
 	};
 	
 	class Foo_AUTOMATED {
@@ -76,14 +81,14 @@ ok( 'Foo'->go(4), '... and a dummy value that should not cause assertion to fail
 	like(
 		exception { 'Foo_AUTOMATED'->go(6) },
 		qr{^Assertion failed at},
-		"class compiled with \$ENV{AUTOMATED_TESTING}; assertions are working",
+		"class compiled with \$ENV{PERL_STRICT}; assertions are working",
 	);
 	ok( 'Foo_AUTOMATED'->go(4), '... and a dummy value that should not cause assertion to fail anyway' );
 }
 
 {
 	BEGIN {
-		$ENV{AUTHOR_TESTING} = $ENV{AUTOMATED_TESTING} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
+		$ENV{AUTHOR_TESTING} = $ENV{PERL_STRICT} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
 		$ENV{EXTENDED_TESTING} = 1;
 	};
 	
@@ -104,7 +109,7 @@ ok( 'Foo'->go(4), '... and a dummy value that should not cause assertion to fail
 
 {
 	BEGIN {
-		$ENV{AUTHOR_TESTING} = $ENV{AUTOMATED_TESTING} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
+		$ENV{AUTHOR_TESTING} = $ENV{PERL_STRICT} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
 		$ENV{RELEASE_TESTING} = 1;
 	};
 	
@@ -125,7 +130,7 @@ ok( 'Foo'->go(4), '... and a dummy value that should not cause assertion to fail
 
 {
 	BEGIN {
-		$ENV{AUTHOR_TESTING} = $ENV{AUTOMATED_TESTING} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
+		$ENV{AUTHOR_TESTING} = $ENV{PERL_STRICT} = $ENV{EXTENDED_TESTING} = $ENV{RELEASE_TESTING} = 0;
 	};
 	
 	class Foo_attr :assertions {

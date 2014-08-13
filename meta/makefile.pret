@@ -5,9 +5,10 @@
 `PerlX-Assert`
 	:runtime-requirement    [ :on "perl 5.008001"^^:CpanId ];
 	:runtime-requirement    [ :on "Exporter::Tiny"^^:CpanId ];
+	:runtime-requirement    [ :on "Devel::StrictMode"^^:CpanId ];
 	:runtime-suggestion     [ :on "Keyword::Simple 0.02"^^:CpanId ];
 	:runtime-suggestion     [ :on "Devel::Declare 0"^^:CpanId ];
 	:test-requirement       [ :on "Test::Modern 0.007"^^:CpanId ];
-	:develop-recommendation [ :on "Dist::Inkt 0.001"^^:CpanId ];
+	:develop-suggestion     [ :on "Dist::Inkt 0.001"^^:CpanId ];
 	.
 
