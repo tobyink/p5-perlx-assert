@@ -9,7 +9,7 @@ use Exporter::Tiny ();
 package PerlX::Assert;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.903';
+our $VERSION   = '0.904';
 our @ISA       = qw( Exporter::Tiny );
 our @EXPORT    = qw( assert );
 

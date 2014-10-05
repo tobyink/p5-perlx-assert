@@ -9,7 +9,7 @@ use PerlX::Assert ();
 package PerlX::Assert::Keyword;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.903';
+our $VERSION   = '0.904';
 our @ISA       = qw( PerlX::Assert );
 
 sub _install_assert

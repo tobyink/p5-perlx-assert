@@ -32,3 +32,9 @@
 		item "Better document Devel::StrictMode usage."^^Documentation;
 	].
 
+`PerlX-Assert 0.904 cpan:TOBYINK`
+	issued  2014-10-05;
+	changeset [
+		item "Fix META.json problems by building with newer Dist::Inkt."^^Packaging;
+	].
+
