@@ -38,3 +38,9 @@
 		item "Fix META.json problems by building with newer Dist::Inkt."^^Packaging;
 		item "Add 'test suggests' dep on Moops."^^Packaging;
 	].
+
+`PerlX-Assert 0.905 cpan:TOBYINK`
+	issued  2014-05-07;
+	changeset [
+		item "Perl 5.26 compatibility."^^Update;
+	].
