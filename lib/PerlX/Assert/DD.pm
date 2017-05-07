@@ -99,7 +99,7 @@ sub _install_assert
 				$self->inc_offset(1);
 				$self->skipspace;
 				
-				if ($self->get_remainder =~ /\A{/)
+				if ($self->get_remainder =~ /\A\{/)
 				{
 					require Carp;
 					Carp::croak("Unexpected comma between assertion name and block");
